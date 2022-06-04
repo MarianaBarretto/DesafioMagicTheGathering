@@ -1,0 +1,4 @@
+br\com\springboot\magic_the_gathering\repository\CartaRepository.class
+br\com\springboot\magic_the_gathering\controllers\GreetingsController.class
+br\com\springboot\magic_the_gathering\Application.class
+br\com\springboot\magic_the_gathering\model\Carta.class

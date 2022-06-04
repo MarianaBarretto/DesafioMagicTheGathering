@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+     <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<style type="text/css">
+
+html{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+</style>
+</head>
+
+<body>
+<h1><center>Magic The Gathering</center></h1>
+<h3><center>Salve suas cartas</center></h3>
+
+
+<form action="" id= "formCarta">
+
+<div class="mb-3">
+  <label for="id" class="form-label">ID</label>
+  <input type="text" class="form-control" id="id" readonly= "readonly">
+</div>
+
+<div class="mb-3">
+  <label for="nomeCarta" class="form-label">Nome da Carta</label>
+  <input type="text" class="form-control" id="nomeCarta" placeholder="Informe o nome da Carta(Português)" required= "required">
+</div>
+
+<div class="mb-3">
+  <label for="edicao" class="form-label">Edição</label>
+  <input type="text" class="form-control" id="edicao" placeholder="Qual a edição" required= "required">
+</div>
+
+<div class="mb-3">
+  <label for="idioma" class="form-label">Idioma</label>
+  <input type="text" class="form-control" id="idioma" placeholder="Inglês, Português ou Japonês" required= "required">
+</div>
+
+<div class="mb-3">
+  <label for="laminada" class="form-label">Laminada</label>
+  <input type="text" class="form-control" id="laminada" placeholder="Sim ou Não" required= "required">
+</div>
+
+<div class="mb-3">
+  <label for="preco" class="form-label">Preço</label>
+  <input type="number" class="form-control" id="preco" placeholder="Digite o preço" required= "required">
+</div>
+
+<div class="mb-3">
+  <label for="quantidade" class="form-label">Quantidade</label>
+  <input type="number" class="form-control" id="quantidade" >
+</div>
+
+
+</form>
+
+<button type="button" class="btn btn-outline-success" onclick="salvarCarta()" >Salvar</button>
+<button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('formCarta').reset();">Novo</button>
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalPesquisarCarta" ">Pesquisar</button>
+<button type="button" class="btn btn-outline-danger" onclick="botaoDeletarDaTela()">Deletar</button>
+<button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modaListarTodos" ">Listar Todas</button>
+<button type="button" class="btn btn-outline-danger" onclick="editarCarta()">Editar</button>
+
+<div class="modal fade" id="modalPesquisarCarta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pesquisa de Carta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="nameBuscar" class="col-form-label">Informe o nome da carta:</label>
+            <input type="text" class="form-control" id="nameBuscar">
+          </div>
+         <button type="button" class="btn btn-success" onclick= "pesquisarCarta()">Buscar</button>
+         </form>
+                  <div style= "height: 300px; overflow: scroll;"> 
+					<table class="table" id="tabelaResultados">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Nome da Carta</th>
+								<th scope="col">Edição</th>
+								<th scope="col">Idioma</th>
+								<th scope="col">Laminada</th>
+								<th scope="col">Preço</th>
+								<th scope="col">Quantidade</th>
+								<th scope="col">Editar</th>
+								<th scope="col">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+                   </div>
+				</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modaListarTodos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lista de todas as Cartas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+        <button type="button" class="btn btn-success" onclick= "listarTodas()">Mostrar</button>
+         </form>
+                  <div style= "height: 300px; overflow: scroll;"> 
+					<table class="table" id="tabelaResultados">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Nome da Carta</th>
+								<th scope="col">Edição</th>
+								<th scope="col">Idioma</th>
+								<th scope="col">Laminada</th>
+								<th scope="col">Preço</th>
+								<th scope="col">Quantidade</th>
+								<th scope="col">Editar</th>
+								<th scope="col">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+                   </div>
+				</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+       </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+<script type= "text/javascript">
+
+   function botaoDeletarDaTela(){
+	   var id = $('#id').val();
+	   
+	   if(id != null && id.trim() != ''){
+	     deleteCarta(id);
+   }  
+
+       document.getElementById('formCarta').reset();
+   }
+
+
+   function deleteCarta(id){
+	   
+	   if(confirm('Deseja realmente deletar?')){
+		   
+	   
+	   
+	   $.ajax({
+		   method: "DELETE",
+		   url: "delete",
+		   data:"idcarta=" + id,
+		   success: function (response){
+			  
+			   $('#' + id).remove();
+			  
+			   alert(response);
+			     
+			 
+		   }
+		  }).fail(function (xhr, Status, errorThrown){
+			  alert("Erro ao deletar carta" + xhr.responseText)
+		  });
+	   } 
+   }
+
+   
+   function listarTodas(){
+	   var nome = $('#nameBuscar').val();	
+   
+	  
+		   
+		   $.ajax({
+			   method: "GET",
+			   url: "listarTodos",
+			   data:"name=" +nome,
+			   success: function (response){
+				 $('#tabelaResultados > tbody > tr').remove();
+				 
+				 for (var i = 0; i < response.length; i++){
+					 $('#tabelaResultados > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].id+'</td><td>'+response[i].nomeCarta+'</td><td>'+response[i].edicao+'</td><td>'+response[i].idioma+'</td><td>'+response[i].laminada+'</td><td>'+response[i].preco+'</td><td>'+response[i].quantidade+'</td><td><button type="button" data-bs-dismiss="modal"  onclick="colocarEmEdicao('+response[i].id+')" class="btn btn-outline-warning">Visualizar</button></td><td><button type="button" onclick="deleteCarta('+response[i].id+')" class="btn btn-outline-danger">Deletar</button></td></tr>'); 
+				 }
+			   }
+			  }).fail(function (xhr, Status, errorThrown){
+				  alert("Erro ao mostrar cartas" + xhr.responseText)
+			  });   
+		   
+	   
+   
+   }
+   
+   
+   function pesquisarCarta(){
+	   var nome = $('#nameBuscar').val();	
+   
+	   if(nome != null && nome.trim() != ''){
+		   
+		   $.ajax({
+			   method: "GET",
+			   url: "buscarPorNome",
+			   data:"name=" + nome,
+			   success: function (response){
+				 $('#tabelaResultados > tbody > tr').remove();
+				 
+				 for (var i = 0; i < response.length; i++){
+					 $('#tabelaResultados > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].id+'</td><td>'+response[i].nomeCarta+'</td><td>'+response[i].edicao+'</td><td>'+response[i].idioma+'</td><td>'+response[i].laminada+'</td><td>'+response[i].preco+'</td><td>'+response[i].quantidade+'</td><td><button type="button" data-bs-dismiss="modal"  onclick="colocarEmEdicao('+response[i].id+')" class="btn btn-outline-warning">Visualizar</button></td><td><button type="button" onclick="deleteCarta('+response[i].id+')" class="btn btn-outline-danger">Deletar</button></td></tr>'); 
+				 }
+			   }
+			  }).fail(function (xhr, Status, errorThrown){
+				  alert("Erro ao buscar carta" + xhr.responseText)
+			  });   
+		   
+	   }
+   
+   }
+   
+   
+   function colocarEmEdicao(id){
+	   
+	   $.ajax({
+		   method: "GET",
+		   url: "buscarCartaId",
+		   data:"idcarta=" + id,
+		   success: function (response){
+			  
+			   $("#id").val(response.id);	   
+			   $("#nomeCarta").val(response.nomeCarta);
+			   $("#edicao").val(response.edicao);
+			   $("#idioma").val(response.idioma);
+			   $("#laminada").val(response.laminada);			   		 
+			   $("#preco").val(response.preco);
+			   $("#quantidade").val(response.quantidade);
+			   
+			   $('#modalPesquisarCarta').modal('hide');
+		   }
+		  }).fail(function (xhr, Status, errorThrown){
+			  alert("Erro" + xhr.responseText)
+		  });
+	   
+   }
+   
+   
+   function salvarCarta(){
+	 
+	   var id = $("#id").val();	   
+	   var nomeCarta = $("#nomeCarta").val();	   
+	   var edicao = $("#edicao").val();	   
+	   var laminada = $("#laminada").val();	   
+	   var idioma = $("#idioma").val();
+	   var preco = $("#preco").val();
+	   var quantidade = $("#quantidade").val();
+	   
+	   
+	   if(nomeCarta == null || nomeCarta != null && nomeCarta.trim() == ''){
+		   $("#nomeCarta").focus();
+		   alert("Informe o nome da carta")
+		   return;
+	   }
+	   
+	   if(edicao == null || edicao != null && edicao.trim() == ''){
+		   $("#edicao").focus();
+		   alert("Informe a edição da carta")
+		   return;
+	   }
+	   
+	   if(laminada == null || laminada != null && laminada.trim() == ''){
+		   $("#laminada").focus();
+		   alert("Informe se é laminada")
+		   return;
+	   }
+	   
+	   if(idioma == null || idioma != null && idioma.trim() == ''){
+		   $("#idioma").focus();
+		   alert("Informe o idioma (Inglês, Português ou Japonês)")
+		   return;
+	   }
+	   
+	   if(preco == null || preco != null && preco.trim() == ''){
+		   $("#preco").focus();
+		   alert("Informe o preco")
+		   return;
+	   }
+	   
+	   if(quantidade == null || quantidade != null && quantidade.trim() == ''){
+		   $("#quantidade").focus();
+		   alert("Informe a quantidade")
+		   return;
+	   }
+   
+	   $.ajax({
+		   method: "POST",
+		   url: "salvar",
+		   data: JSON.stringify({id : id, nomeCarta : nomeCarta, edicao : edicao, laminada  : laminada, idioma : idioma, preco : preco, quantidade : quantidade}),
+		   contentType: "application/json; charset=utf-8",
+		   success: function (response){
+			 $("#id").val(response.id);  
+		      alert("Gravado com Sucesso!")
+		   }
+		  }).fail(function (xhr, Status, errorThrown){
+			  alert("Erro ao salvar carta:" + xhr.responseText)
+		  });
+	   
+   }
+   
+   function editarCarta(){
+		 
+	   var id = $("#id").val();	   
+	   var nomeCarta = $("#nomeCarta").val();	   
+	   var edicao = $("#edicao").val();	   
+	   var laminada = $("#laminada").val();	   
+	   var idioma = $("#idioma").val();
+	   var preco = $("#preco").val();
+	   var quantidade = $("#quantidade").val();      
+	   
+   
+	   $.ajax({
+		   method: "PUT",
+		   url: "atualizar",
+		   data: JSON.stringify({id : id, nomeCarta : nomeCarta, edicao : edicao, laminada  : laminada, idioma : idioma, preco : preco, quantidade : quantidade}),
+		   contentType: "application/json; charset=utf-8",
+		   success: function (response){
+			 $("#id").val(response.id);  
+		      alert("Editado com Sucesso!")
+		   }
+		  }).fail(function (xhr, Status, errorThrown){
+			  alert("Erro ao editar carta:" + xhr.responseText)
+		  });
+	   
+   }
+
+</script>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+
+
+</html>
